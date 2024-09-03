@@ -9,8 +9,8 @@ This is a first website draft.
 
  # Set page tab display
 st.set_page_config(
-   page_title="Upload your Invoice",
-   page_icon= '🧾',
+   page_title="Recycling Reimagined",
+   page_icon= '♻️',
    layout="wide",
    initial_sidebar_state="expanded",
 )
@@ -24,7 +24,7 @@ url = 'http://localhost:8000'
 st.header('Simple Image Uploader 📸')
 
 st.markdown("---")
-
+''''
 ### Create a native Streamlit file upload input
 st.markdown("### Let's do a simple Invoice Extraction👇")
 img_file_buffer = st.file_uploader('Upload an Invoice')
