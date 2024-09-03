@@ -28,9 +28,12 @@ def create_image(original_image_array: np.array, bound_boxes: dict) -> np.array:
 
         #breakpoint()
         # Draw rectangle on the image
-        cv2.rectangle(opencv_image, pt1=(coordinates[0], coordinates[1]), pt2=(coordinates[2], coordinates[3]), color=(0, 255, 0), thickness=3)
+        cv2.rectangle(opencv_image, pt1=(coordinates[0], coordinates[1]), pt2=(coordinates[2], coordinates[3]), color=(0, 255, 0), thickness=4)
+
+        text = [coord for coord in coordinates]
 
         # Rectangle holding the text
+        cv2.putText(opencv_image, text='sample_text', org=(coordinates[0],coordinates[1]), fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=3, color=(255,255,255), thickness=4, lineType=cv2.LINE_AA)
         #cv2.rectangle(#### )
 
         # Rectangle holding the score
