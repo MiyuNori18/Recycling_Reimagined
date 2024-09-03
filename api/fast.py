@@ -41,7 +41,6 @@ def index():
 
 
 @app.post('/predict_image')
-
 async def receive_image(img: UploadFile=File(...)):
     ### Receiving and decoding the image
 
