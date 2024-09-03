@@ -48,7 +48,7 @@ if img_file_buffer is not None:
          prediction = res.json()
 
 
-         image = create_image(np_image, prediction['boxes'])
+         image = create_image(np_image, prediction)
 
          st.image(image)
        else:
