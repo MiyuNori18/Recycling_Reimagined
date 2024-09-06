@@ -20,15 +20,6 @@ classes_dict = {
 
     }
 
-colors_dict = {
-    0: "cardboard",
-    1: "glass",
-    2: "metal",
-    3: "organic waste",
-    4: "paper",
-    5: "plastic",
-    6: "background"
-    }
 
 
 
@@ -55,7 +46,16 @@ def create_image(original_image_array: np.array, prediction: dict) -> np.array:
     5: "plastic",
     6: "background"
 
+    }
 
+    # Color to RGB
+    colors_dict = {
+
+    "blue": (35, 44, 126),
+    "green": (47, 119, 63),
+    "brown": (121, 85, 61),
+    "yellow": (244, 239, 48),
+    "default": (230,5,100)
 
     }
 
