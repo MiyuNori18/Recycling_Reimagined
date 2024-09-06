@@ -16,7 +16,7 @@ from ultralytics import YOLO
 app = FastAPI()
 
 def load_model():
-    model = YOLO('models_weights/best.pt')
+    model = YOLO('models_weights/FINAL.pt')
     return model
 
 app.state.model = load_model()
@@ -52,7 +52,7 @@ async def receive_image(img: UploadFile=File(...)):
 
     model = app.state.model
 
-    prediction = model.predict(cv2_img, save=False, imgsz=640, vid_stride=1, conf=0.25)
+    prediction = model.predict(cv2_img, device="cuda:0", save=False, imgsz=640, vid_stride=10, conf=0.3, stream_buffer=True)
 
 
     ### Do cool stuff with your image.... For example face detection
@@ -65,6 +65,6 @@ async def receive_image(img: UploadFile=File(...)):
     boxes = prediction[0].boxes
 
 
-    prediction = {"classes":boxes.cls.numpy().tolist(), "confidence":boxes.conf.numpy().tolist(), "boxes":boxes.xyxy.numpy().tolist()}
+    prediction = {"classes":boxes.cls.cpu().detach().numpy().tolist(), "confidence":boxes.conf.cpu().detach().numpy().tolist(), "boxes":boxes.xyxy.cpu().detach().numpy().tolist()}
 
     return prediction

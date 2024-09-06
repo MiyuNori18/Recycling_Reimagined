@@ -7,6 +7,32 @@ import requests
 #url = 'http://127.0.0.1:8000'
 #prediction = requests.post(url + "/predict_image", files={'img': img_bytes})
 
+classes_dict = {
+    0: "cardboard",
+    1: "glass",
+    2: "metal",
+    3: "organic waste",
+    4: "paper",
+    5: "plastic",
+    6: "background"
+
+
+
+    }
+
+colors_dict = {
+    0: "cardboard",
+    1: "glass",
+    2: "metal",
+    3: "organic waste",
+    4: "paper",
+    5: "plastic",
+    6: "background"
+    }
+
+
+
+
 def create_image(original_image_array: np.array, prediction: dict) -> np.array:
     """
     Takes both:
@@ -17,7 +43,21 @@ def create_image(original_image_array: np.array, prediction: dict) -> np.array:
     """
     # Create an OpenCV image from the numeric array
     opencv_image = cv2.cvtColor(original_image_array, cv2.COLOR_RGB2BGR)
-    classes_dict = {0:"trash"}
+
+
+
+    classes_dict = {
+    0: "cardboard",
+    1: "glass",
+    2: "metal",
+    3: "organic waste",
+    4: "paper",
+    5: "plastic",
+    6: "background"
+
+
+
+    }
 
     # Annotate bounding boxes on the OpenCV image
     for index, coordinates in enumerate(prediction['boxes']):
@@ -33,8 +73,21 @@ def create_image(original_image_array: np.array, prediction: dict) -> np.array:
 
         text = f'{object_type} {round(probability, 2)}'
 
+        # Calculate text size
+
+
+        text_size, _ = cv2.getTextSize(text, cv2.FONT_HERSHEY_SIMPLEX, 0.5, 1)
+
+        text_w, text_h = text_size
+
+
+
+        # Add background
+        #cv2.rectangle(opencv_image, (coordinates[0],coordinates[1]-5), (coordinates[0]+200,coordinates[1]-45), (230,5,100), -1)
+        cv2.rectangle(opencv_image, (coordinates[0],coordinates[1]-40), (coordinates[0]+text_w,coordinates[1]+text_h-20), (230,5,100), -1)
+
         # Rectangle holding the text
-        cv2.putText(opencv_image, text=text, org=(coordinates[0],coordinates[1]), fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=1, color=(255,255,255), thickness=3, lineType=cv2.LINE_AA)
+        cv2.putText(opencv_image, text=text, org=(coordinates[0],coordinates[1]-10), fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=0.5, color=(255,255,255), thickness=1, lineType=cv2.LINE_AA)
         #cv2.rectangle(#### )
 
         # Rectangle holding the score
